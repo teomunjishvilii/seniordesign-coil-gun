@@ -25,7 +25,7 @@ try:
 	      set_angle(angle)
 	      time.sleep(1)
 except KeyboardInterrupt:
-    p.stop()
+    pwm.stop()
     GPIO.cleanup()
 
 
