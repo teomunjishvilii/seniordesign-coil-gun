@@ -12,7 +12,6 @@ while i<1:
 	out = cv2.imwrite('captureCEI' + str(i) + '.jpg', frame)
 	cv2.imshow('Original', out)
 	i = i+1
-	time.sleep(2)
 		
 #cap.release()
 #cv2.destroyAllWindows()
