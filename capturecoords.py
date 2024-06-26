@@ -4,8 +4,6 @@ import cv2
 import numpy as np
 import time
 
-cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
-
 def detect_red(image):
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     lower_red1 = np.array([0, 200, 70])
@@ -51,10 +49,10 @@ def draw_grid(image, grid_size_x, grid_size_y, num_grids_x, num_grids_y):
     return image
 
 def main():
-    i = 0
+    cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
+    
     grid_x = 12
     grid_y = 9
-    #while i < 1:
     image_name = 'captureCEI0.jpg'
     image = cv2.imread(image_name)
         
@@ -83,11 +81,12 @@ def main():
         mean_x = int(np.mean(max_grid_coordinates[:, 1])) + max_grid_key[0] * grid_size_x
         mean_y = int(np.mean(max_grid_coordinates[:, 0])) + max_grid_key[1] * grid_size_y
         print(f"Grid {max_grid_key}: means = ({mean_x}, {mean_y})")
-        return max_grid_key
+        #return max_grid_key
         
     image_with_grid = draw_grid(image.copy(), grid_size_x, grid_size_y, grid_x, grid_y)
     cv2.imshow('Original with Grid', image_with_grid)
     cv2.imshow('Red Detected', mask)
+    time.sleep(10)
 
 
 if __name__ == "__main__":

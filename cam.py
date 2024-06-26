@@ -13,3 +13,6 @@ def capture_image():
 		out = cv2.imwrite('captureCEI0.jpg', frame)
 	else:
 		print("Failed to capture image!")
+		
+		
+capture_image()
