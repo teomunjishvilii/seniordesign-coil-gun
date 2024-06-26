@@ -123,7 +123,7 @@ def calculate_angle_with_grid(x, y):
 	  set_angle(128, pwm2)
 	  time.sleep(1.5)
 	   
-translate_coords_to_angle(7,1)
+translate_coords_to_angle(3,0)
 #calculate_angle_with_grid(0, 4)
 time.sleep(2)
 pwm1.stop()

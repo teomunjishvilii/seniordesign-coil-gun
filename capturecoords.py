@@ -1,11 +1,10 @@
-
 #!/usr/bin/python
 
 import cv2
 import numpy as np
 import time
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
 
 def detect_red(image):
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
@@ -55,46 +54,41 @@ def main():
     i = 0
     grid_x = 12
     grid_y = 9
-    while i < 1:
-        image_name = 'captureCEI' + str(i) + '.jpg'
-        image = cv2.imread(image_name)
+    #while i < 1:
+    image_name = 'captureCEI0.jpg'
+    image = cv2.imread(image_name)
         
-        mask = detect_red(image)
+    mask = detect_red(image)
         
-        height, width, _ = image.shape
-        grid_size_x = width // grid_x
-        grid_size_y = height // grid_y
+    height, width, _ = image.shape
+    grid_size_x = width // grid_x
+    grid_size_y = height // grid_y
+    
+    grids = grid_image(mask, grid_size_x, grid_size_y, grid_x, grid_y)
+    
+    max_pixel_count = 0
+    max_grid_key = None
+    max_grid_coordinates = None
         
-        grids = grid_image(mask, grid_size_x, grid_size_y, grid_x, grid_y)
-        
-        max_pixel_count = 0
-        max_grid_key = None
-        max_grid_coordinates = None
-        
-        for key, grid in grids.items():
-            pixel_coordinates = np.column_stack(np.where(grid))
-            pixel_count = len(pixel_coordinates)
+    for key, grid in grids.items():
+        pixel_coordinates = np.column_stack(np.where(grid))
+        pixel_count = len(pixel_coordinates)
             
-            if pixel_count > max_pixel_count:
-                max_pixel_count = pixel_count
-                max_grid_key = key
-                max_grid_coordinates = pixel_coordinates
+        if pixel_count > max_pixel_count:
+            max_pixel_count = pixel_count
+            max_grid_key = key
+            max_grid_coordinates = pixel_coordinates
                 
-        if max_grid_coordinates is not None:
-            mean_x = int(np.mean(max_grid_coordinates[:, 1])) + max_grid_key[0] * grid_size_x
-            mean_y = int(np.mean(max_grid_coordinates[:, 0])) + max_grid_key[1] * grid_size_y
-            print(f"Grid {max_grid_key}: means = ({mean_x}, {mean_y})")
+    if max_grid_coordinates is not None:
+        mean_x = int(np.mean(max_grid_coordinates[:, 1])) + max_grid_key[0] * grid_size_x
+        mean_y = int(np.mean(max_grid_coordinates[:, 0])) + max_grid_key[1] * grid_size_y
+        print(f"Grid {max_grid_key}: means = ({mean_x}, {mean_y})")
+        return max_grid_key
         
-        image_with_grid = draw_grid(image.copy(), grid_size_x, grid_size_y, grid_x, grid_y)
-        cv2.imshow('Original with Grid', image_with_grid)
-        cv2.imshow('Red Detected', mask)
-        
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-        
-        i += 1
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+    image_with_grid = draw_grid(image.copy(), grid_size_x, grid_size_y, grid_x, grid_y)
+    cv2.imshow('Original with Grid', image_with_grid)
+    cv2.imshow('Red Detected', mask)
+
 
 if __name__ == "__main__":
     main()
