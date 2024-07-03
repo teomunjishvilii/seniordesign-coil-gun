@@ -41,11 +41,25 @@ def translate_coords_to_angle(x,y):
 	  time.sleep(1.5)
 	  set_angle(81, pwm2)
 	else:
-	  pwm1_angle = 9+(4*y)
-	  pwm2_angle = 128-(4*x)
-	  set_angle(pwm1_angle, pwm1)
-	  time.sleep(1.5)
-	  set_angle(pwm2_angle, pwm2)
+		if(x < 24):
+		  print("Left half")
+		  pwm1_angle = 9+(1*y)
+		  pwm2_angle = 128-(0.85*x)
+		  set_angle(pwm1_angle, pwm1)
+		  time.sleep(1.5)
+		  set_angle(pwm2_angle, pwm2)
+		elif(x >= 24):
+		  print("Right half")
+		  pwm1_angle = 9+(0.88*y)
+		  pwm2_angle = 128-(0.96*x)
+		  set_angle(pwm1_angle, pwm1)
+		  time.sleep(1.5)
+		  set_angle(pwm2_angle, pwm2)
+#	  pwm1_angle = 9+(1*y)
+#	  pwm2_angle = 128-(0.75*x)
+#	  set_angle(pwm1_angle, pwm1)
+#	  time.sleep(1.5)
+#	  set_angle(pwm2_angle, pwm2)
 	
 	
 def calculate_angle_with_grid(x, y):
@@ -123,7 +137,7 @@ def calculate_angle_with_grid(x, y):
 	  set_angle(128, pwm2)
 	  time.sleep(1.5)
 	   
-translate_coords_to_angle(3,0)
+translate_coords_to_angle(0,1)
 #calculate_angle_with_grid(0, 4)
 time.sleep(2)
 pwm1.stop()

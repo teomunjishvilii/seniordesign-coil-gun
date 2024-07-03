@@ -26,7 +26,7 @@ capture_image()
 [x, y] = main()
 translate_coords_to_angle(x, y)
 
-time.sleep(2)
+time.sleep(4)
 pwm1.stop()
 pwm2.stop()
 GPIO.cleanup()

@@ -28,7 +28,7 @@ def grid_image(image, grid_size_x, grid_size_y, num_grids_x, num_grids_y):
     grids = {}
     
     for y in range(num_grids_y):
-        for x in range(num_grids_x):
+        for x in range(num_grids_x):a
             start_x = x * grid_size_x
             start_y = y * grid_size_y
             end_x = start_x + grid_size_x
@@ -51,8 +51,8 @@ def draw_grid(image, grid_size_x, grid_size_y, num_grids_x, num_grids_y):
 def main():
     cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
     
-    grid_x = 48
-    grid_y = 36
+    grid_x = 12
+    grid_y = 9
     image_name = 'captureCEI0.jpg'
     image = cv2.imread(image_name)
         
