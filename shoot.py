@@ -1,3 +1,6 @@
+
+
+
 import RPi.GPIO as GPIO
 import time
 
@@ -7,10 +10,10 @@ GPIO.setmode(GPIO.BCM)
 # Define the GPIO pin that you are using to control the TC4420 driver
 mosfet_driver_pin = 17
 
-# Set up the GPIO pin as an output
+# Set up the GPIO pin as an output 
 GPIO.setup(mosfet_driver_pin, GPIO.OUT)
 
-# Function to turn the MOSFET on
+# Function to turn the MOFET on
 def mosfet_on():
     GPIO.output(mosfet_driver_pin, GPIO.HIGH)
 

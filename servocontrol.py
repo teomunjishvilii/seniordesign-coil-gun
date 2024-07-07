@@ -20,14 +20,61 @@ def set_angle(angle, pwm):
 	duty = float(angle) / 18.0 + 2.5
 	pwm.ChangeDutyCycle(duty)
 	
-set_angle(24, pwm1)
-set_angle(110, pwm2)
+set_angle(100, pwm1)
+set_angle(90, pwm2)
 
 def translate_coords_to_angle(x,y):
-	if(x == 0 and y == 0):
-	  set_angle(10, pwm1)
+	if(x < 24 and y < 7 ):
+	  print("Left top quarter")
+	  pwm1_angle = 87+(0.8*y)
+	  pwm2_angle = 106.5-(1*x)
+	  set_angle(pwm1_angle, pwm1)
 	  time.sleep(1.5)
-	  set_angle(128, pwm2)
+	  set_angle(pwm2_angle, pwm2)
+	  
+	elif(x < 24 and y >= 7 and y < 10):
+	  print("Left top quarter bottom")
+	  pwm1_angle = 87+(1*y)
+	  pwm2_angle = 106.5-(1.08*x)
+	  set_angle(pwm1_angle, pwm1)
+	  time.sleep(1.5)
+	  set_angle(pwm2_angle, pwm2)
+	  
+	elif(x >= 24 and y >= 10):
+	  print("Right bottom quarter")
+	  pwm1_angle = 87+(1*y)
+	  pwm2_angle = 106.5-(1.05*x)
+	  set_angle(pwm1_angle, pwm1)
+	  time.sleep(1.5)
+	  set_angle(pwm2_angle, pwm2)
+	elif(x >= 24 and x < 35 and y < 10):
+	  print("Right Top quarter")
+	  pwm1_angle = 87+(0.8*y)
+	  pwm2_angle = 106.5-(1.08*x)
+	  set_angle(pwm1_angle, pwm1)
+	  time.sleep(1.5)
+	  set_angle(pwm2_angle, pwm2)
+	  
+	elif(x >= 35 and y < 10):
+	  print("Right Top quarter")
+	  pwm1_angle = 87+(1.2*y)
+	  pwm2_angle = 106.5-(1.08*x)
+	  set_angle(pwm1_angle, pwm1)
+	  time.sleep(1.5)
+	  set_angle(pwm2_angle, pwm2)
+	else:
+	  print("Left bottom quarter")
+	  pwm1_angle = 87+(1.05*y)
+	  pwm2_angle = 106.5-(1*x)
+	  set_angle(pwm1_angle, pwm1)
+	  time.sleep(1.5)
+	  set_angle(pwm2_angle, pwm2)
+	
+def translate_coords_to_angle2(x,y):
+	if(x == 0 and y == 0):
+	  set_angle(87, pwm1)
+	  time.sleep(1.5)
+	  set_angle(106.5, pwm2)
 	elif(x == 9 and y == 0):
 	  set_angle(7, pwm1)
 	  time.sleep(1.5)
@@ -137,7 +184,7 @@ def calculate_angle_with_grid(x, y):
 	  set_angle(128, pwm2)
 	  time.sleep(1.5)
 	   
-translate_coords_to_angle(0,1)
+#translate_coords_to_angle(0,0)
 #calculate_angle_with_grid(0, 4)
 time.sleep(2)
 pwm1.stop()
