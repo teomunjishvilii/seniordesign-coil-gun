@@ -12,9 +12,14 @@ def detect_red(image):
 	#lower_red = np.array([100, 170, 190])
 	#upper_red = np.array([255, 255, 255])
 	
-	lower_red1 = np.array([0, 200, 30])
+#	lower_red1 = np.array([0, 200, 60])
+#	upper_red1 = np.array([10, 255, 255])
+#	lower_red2 = np.array([170, 200, 60])
+#	upper_red2 = np.array([255, 255, 255])
+
+	lower_red1 = np.array([0, 120, 70])
 	upper_red1 = np.array([10, 255, 255])
-	lower_red2 = np.array([170, 200, 30])
+	lower_red2 = np.array([170, 120, 70])
 	upper_red2 = np.array([180, 255, 255])
 	
 	mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
@@ -22,7 +27,7 @@ def detect_red(image):
 	
 	#mask = cv2.inRange(hsv, lower_red, upper_red)
 	mask = cv2.bitwise_or(mask1, mask2)
-	
+	print(mask)
 	res = cv2.bitwise_and(image, image, mask=mask)
 	
 	return res
